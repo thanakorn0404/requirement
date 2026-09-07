@@ -32,6 +32,10 @@ yarn-error.log*
 
 # env files (can opt-in for committing if needed)
 .env*
+!.env.example
+
+# ไฟล์นำเข้า อปท. จาก DLA (ดาวน์โหลดตอนรันสคริปต์)
+/data/*.csv
 
 # vercel
 .vercel
