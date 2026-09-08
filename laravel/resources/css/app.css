@@ -1,0 +1,343 @@
+@import 'tailwindcss';
+
+@source '../../vendor/laravel/framework/src/Illuminate/Pagination/resources/views/*.blade.php';
+@source '../../storage/framework/views/*.php';
+@source '../**/*.blade.php';
+@source '../**/*.js';
+@source '../../public/js/**/*.js';
+
+@theme {
+    --font-sans: "Noto Sans Thai", ui-sans-serif, system-ui, sans-serif;
+    --color-sts: #e11d2e;
+    --color-sts-dark: #be123c;
+    --color-sts-deep: #7f1d1d;
+    --color-sts-navy: #3f0d12;
+    --color-sts-soft: #fff1f2;
+    --color-sts-border: #f0d4d8;
+    --shadow-card: 0 18px 40px -28px rgb(63 13 18 / 0.35);
+}
+
+@layer base {
+    html {
+        @apply scroll-smooth;
+    }
+
+    body {
+        @apply min-h-screen bg-stone-50 font-sans text-stone-800 antialiased;
+        background-image:
+            radial-gradient(1200px 520px at 8% -10%, rgb(225 29 46 / 0.08), transparent 55%),
+            radial-gradient(900px 420px at 100% 0%, rgb(127 29 29 / 0.07), transparent 50%);
+    }
+
+    h1 {
+        @apply text-3xl font-bold tracking-tight text-sts-deep;
+    }
+
+    h2, h3 {
+        @apply text-lg font-semibold tracking-tight text-sts-deep;
+    }
+
+    label {
+        @apply mb-1.5 mt-4 block text-sm font-medium text-stone-600 first:mt-0;
+    }
+}
+
+@layer components {
+    .btn {
+        @apply inline-flex items-center justify-center gap-2 rounded-2xl bg-sts px-4 py-2.5 text-sm font-semibold text-white shadow-lg shadow-sts/20 transition hover:-translate-y-0.5 hover:bg-sts-dark active:translate-y-0;
+    }
+
+    .btn.secondary,
+    .btn-secondary {
+        @apply bg-white text-sts-deep shadow-none ring-1 ring-sts-border hover:bg-sts-soft;
+    }
+
+    .btn.ghost,
+    .btn-ghost {
+        @apply bg-transparent text-stone-500 shadow-none ring-0 hover:bg-stone-100 hover:text-sts-deep;
+    }
+
+    .btn.danger {
+        @apply bg-red-600 shadow-red-600/20 hover:bg-red-700;
+    }
+
+    .input,
+    select.input,
+    textarea.input {
+        @apply w-full rounded-2xl border-0 bg-white px-3.5 py-2.5 text-sm text-stone-800 shadow-sm ring-1 ring-sts-border transition placeholder:text-stone-400 focus:ring-2 focus:ring-sts;
+    }
+
+    textarea.input {
+        min-height: 7rem;
+    }
+
+    textarea.input.short {
+        min-height: 5.25rem;
+    }
+
+    .pick-chip {
+        @apply rounded-full bg-sts-soft px-2.5 py-1 text-xs font-semibold text-sts-deep ring-1 ring-sts-border transition hover:bg-white hover:text-sts;
+    }
+
+    .card {
+        @apply rounded-3xl bg-white/90 shadow-card ring-1 ring-rose-100/80 backdrop-blur;
+    }
+
+    .card-pad {
+        @apply p-5 sm:p-6;
+    }
+
+    .badge {
+        @apply inline-flex items-center rounded-full bg-sts-soft px-2.5 py-1 text-xs font-semibold text-sts-deep;
+    }
+
+    .muted {
+        @apply text-sm text-stone-500;
+    }
+
+    .flash {
+        @apply mb-5 rounded-2xl px-4 py-3 text-sm font-medium;
+    }
+
+    .flash.ok {
+        @apply bg-emerald-50 text-emerald-800 ring-1 ring-emerald-100;
+    }
+
+    .flash.err {
+        @apply bg-rose-50 text-rose-800 ring-1 ring-rose-100;
+    }
+
+    .page-head {
+        @apply mb-7 flex flex-wrap items-end justify-between gap-4;
+    }
+
+    .page-kicker {
+        @apply mb-1 text-sm font-semibold tracking-wide text-sts;
+    }
+
+    .page-head h1 {
+        @apply text-[1.85rem] leading-tight sm:text-3xl;
+    }
+
+    .page-head-actions {
+        @apply flex flex-wrap items-center gap-2;
+    }
+
+    .back-link {
+        @apply mb-3 inline-flex items-center gap-1 text-sm text-stone-500 transition hover:text-sts;
+    }
+
+    .section-title {
+        @apply mb-4 text-base font-bold text-sts-deep;
+    }
+
+    .table-wrap {
+        @apply overflow-x-auto rounded-3xl bg-white/90 shadow-card ring-1 ring-rose-100/80 backdrop-blur;
+    }
+
+    .table {
+        @apply w-full text-left text-sm;
+    }
+
+    .table th {
+        @apply border-b border-rose-100 bg-sts-soft/40 px-4 py-3 text-xs font-semibold tracking-wide text-stone-500;
+    }
+
+    .table td {
+        @apply border-b border-rose-50 px-4 py-3.5 text-stone-700;
+    }
+
+    .table tbody tr {
+        @apply transition hover:bg-sts-soft/50;
+    }
+
+    .table tbody tr:last-child td {
+        @apply border-b-0;
+    }
+
+    .ui-dialog {
+        @apply w-[min(34rem,calc(100vw-1.5rem))] max-h-[min(88vh,760px)] overflow-auto rounded-3xl border-0 bg-white p-6 text-stone-800 shadow-2xl shadow-rose-950/20;
+        position: fixed;
+        inset: 0;
+        margin: auto;
+        height: fit-content;
+    }
+
+    .ui-dialog[open] {
+        animation: dialog-in 0.18s ease-out;
+    }
+
+    .ui-dialog::backdrop {
+        background: rgb(28 16 18 / 0.55);
+        backdrop-filter: blur(8px);
+    }
+
+    .dialog-head {
+        @apply mb-5 flex items-start justify-between gap-3;
+    }
+
+    .icon-btn {
+        @apply grid h-9 w-9 shrink-0 place-items-center rounded-xl text-stone-400 transition hover:bg-stone-100 hover:text-sts-deep;
+    }
+
+    .dialog-actions {
+        @apply mt-6 flex justify-end gap-2;
+    }
+
+    .confirm-dialog {
+        @apply w-[min(26rem,calc(100vw-1.5rem))] p-8 pt-10 text-center;
+    }
+
+    .confirm-dialog-close {
+        @apply absolute right-4 top-4;
+    }
+
+    .confirm-dialog-icon {
+        @apply mx-auto mb-4 grid h-14 w-14 place-items-center rounded-full bg-sts-soft text-sts;
+    }
+
+    .confirm-dialog-icon svg {
+        @apply h-7 w-7;
+    }
+
+    .confirm-dialog #confirm-title {
+        @apply m-0 text-xl font-extrabold tracking-tight text-sts-deep;
+    }
+
+    .confirm-dialog #confirm-message {
+        @apply mx-auto mt-2 max-w-sm text-sm leading-7 text-stone-500;
+    }
+
+    .confirm-dialog-actions {
+        @apply mt-7 flex justify-center gap-3;
+    }
+
+    .confirm-dialog-actions .btn {
+        @apply min-w-[7.5rem];
+    }
+
+    .empty-state {
+        @apply px-5 py-10 text-center;
+    }
+
+    .empty-icon {
+        @apply mx-auto mb-3 grid h-12 w-12 place-items-center rounded-2xl bg-sts-soft text-[10px] font-extrabold tracking-widest text-sts-deep;
+    }
+
+    .pager {
+        @apply mt-6 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between;
+    }
+
+    .pager-btn {
+        @apply inline-flex min-w-9 items-center justify-center rounded-xl bg-white px-3 py-2 text-sm font-medium text-sts-deep ring-1 ring-sts-border transition hover:bg-sts-soft;
+    }
+
+    .pager-btn.is-active {
+        @apply bg-sts text-white ring-sts;
+    }
+
+    .pager-btn.is-disabled {
+        @apply cursor-not-allowed text-stone-400 hover:bg-white;
+    }
+
+    .toast {
+        @apply fixed bottom-6 right-6 z-50 rounded-2xl bg-sts-navy px-4 py-3 text-sm font-medium text-white shadow-2xl;
+    }
+
+    .person-chip {
+        @apply mt-2 rounded-2xl bg-sts-soft px-3 py-2 text-sm text-sts-deep;
+    }
+
+    .nav-link {
+        @apply flex items-center gap-3 rounded-2xl px-3.5 py-2.5 text-sm font-medium text-white/80 transition hover:bg-white/10 hover:text-white;
+    }
+
+    .nav-link.active {
+        @apply bg-white text-sts-navy shadow-lg shadow-black/10;
+    }
+
+    .stat-card {
+        @apply relative overflow-hidden rounded-3xl bg-white/90 p-5 shadow-card ring-1 ring-rose-100/80 backdrop-blur transition hover:-translate-y-0.5 hover:shadow-xl;
+    }
+
+    .stat-value {
+        @apply mt-2 text-3xl font-extrabold tracking-tight text-sts-deep;
+    }
+
+    .list-row {
+        @apply flex items-center justify-between gap-3 rounded-2xl px-2.5 py-3 transition hover:bg-sts-soft/70;
+    }
+
+    .builder {
+        @apply flex h-screen flex-col bg-[#f7f2f3];
+    }
+
+    .builder-head {
+        @apply flex flex-wrap items-center justify-between gap-3 border-b border-rose-100 bg-white/95 px-5 py-4 backdrop-blur;
+    }
+
+    .builder-body {
+        @apply grid min-h-0 flex-1 grid-cols-1 lg:grid-cols-[280px_1fr_320px];
+    }
+
+    .builder-side {
+        @apply overflow-auto bg-white p-4;
+    }
+
+    .palette-item,
+    .person-item {
+        @apply mb-2 flex cursor-grab items-center gap-2 rounded-2xl bg-stone-50 px-3 py-2.5 text-sm font-medium text-sts-deep ring-1 ring-rose-100/80 transition select-none hover:bg-sts-soft hover:ring-sts-border active:cursor-grabbing;
+        touch-action: none;
+    }
+
+    .palette-ghost {
+        @apply pointer-events-none fixed z-[80] rounded-2xl bg-white px-3 py-2 text-sm font-semibold text-sts-deep shadow-xl ring-2 ring-sts;
+    }
+
+    .canvas-wrap {
+        @apply relative overflow-auto bg-[radial-gradient(#eadfe1_1px,transparent_1px)] bg-size-[20px_20px] bg-[#f7f2f3];
+    }
+
+    .canvas {
+        @apply relative min-h-[1200px] min-w-[1800px];
+    }
+
+    .block-person {
+        @apply flex items-center gap-2.5 rounded-xl bg-white px-2.5 py-2 shadow-sm ring-1 ring-rose-100/80;
+    }
+
+    .block-avatar {
+        @apply grid h-9 w-9 shrink-0 place-items-center rounded-full bg-linear-to-br from-sts to-sts-navy text-[11px] font-bold text-white;
+    }
+
+    .block-person-name {
+        @apply text-sm font-semibold leading-relaxed text-sts-deep;
+    }
+
+    .block-person-role {
+        @apply text-[11px] leading-relaxed text-stone-500;
+    }
+
+    .block-empty {
+        @apply rounded-xl px-2 py-3 text-center text-xs leading-relaxed text-stone-400;
+    }
+
+    .edge-layer {
+        @apply pointer-events-none absolute inset-0;
+    }
+
+    .app-main {
+        @apply mx-auto w-full max-w-[1400px] flex-1 px-4 py-8 sm:px-8;
+    }
+}
+
+@keyframes dialog-in {
+    from { opacity: 0; transform: translateY(10px) scale(0.98); }
+    to { opacity: 1; transform: none; }
+}
+
+@media print {
+    aside, header, .btn, form {
+        display: none !important;
+    }
+}

@@ -1,0 +1,232 @@
+.canvas .wf-node {
+    position: absolute !important;
+    z-index: 3;
+    width: 260px;
+    box-sizing: border-box;
+    overflow: visible;
+    cursor: grab;
+}
+
+.canvas .wf-node.selected {
+    z-index: 4;
+}
+
+.canvas .wf-node-card {
+    position: relative;
+    z-index: 1;
+    overflow: hidden;
+    background: #fff;
+    border: 1px solid #edd6da;
+    border-left: 6px solid #e11d2e;
+    border-radius: 18px;
+    box-shadow: 0 12px 28px rgba(63, 13, 18, 0.12);
+}
+
+.canvas .wf-node.selected .wf-node-card {
+    border-color: #e11d2e;
+    box-shadow: 0 16px 36px rgba(225, 29, 46, 0.18);
+}
+
+.canvas .wf-node-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: 8px;
+    padding: 14px 14px 12px 16px;
+    background: #fff;
+}
+
+.canvas .wf-node-kicker {
+    display: inline-block;
+    margin: 0 0 8px;
+    padding: 3px 8px;
+    border-radius: 999px;
+    background: #fff1f2;
+    color: #be123c;
+    font-size: 11px;
+    font-weight: 700;
+    line-height: 1.7;
+}
+
+.canvas .wf-node-title {
+    color: #3f0d12;
+    font-size: 20px;
+    font-weight: 800;
+    line-height: 1.85;
+    word-break: break-word;
+}
+
+.canvas .wf-node-desc {
+    margin-top: 4px;
+    color: #78716c;
+    font-size: 12px;
+    line-height: 1.7;
+}
+
+.canvas .wf-node-del {
+    display: grid;
+    place-items: center;
+    width: 28px;
+    height: 28px;
+    flex-shrink: 0;
+    border: 0;
+    border-radius: 8px;
+    background: transparent;
+    color: #a8a29e;
+    cursor: pointer;
+}
+
+.canvas .wf-node-del:hover {
+    background: #fff1f2;
+    color: #e11d2e;
+}
+
+.canvas .wf-node-body {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin: 0 12px 12px;
+    padding: 0;
+    background: transparent;
+}
+
+.canvas .wf-drop {
+    border: 1.5px dashed #f0d4d8;
+    border-radius: 12px;
+    padding: 16px 10px;
+    background: #fafafa;
+    color: #a8a29e;
+    font-size: 12px;
+    line-height: 1.7;
+    text-align: center;
+}
+
+.canvas .wf-node.tone-mayor .wf-node-card { border-left-color: #3f0d12; }
+.canvas .wf-node.tone-clerk .wf-node-card { border-left-color: #e11d2e; }
+.canvas .wf-node.tone-director .wf-node-card,
+.canvas .wf-node.tone-head .wf-node-card { border-left-color: #be123c; }
+.canvas .wf-node.tone-admin .wf-node-card { border-left-color: #f43f5e; }
+.canvas .wf-node.tone-staff .wf-node-card { border-left-color: #a8a29e; }
+
+.canvas .wf-node .handle {
+    position: absolute;
+    left: 50%;
+    z-index: 30;
+    width: 16px;
+    height: 16px;
+    border: 2px solid #fff;
+    border-radius: 999px;
+    background: #e11d2e;
+    box-shadow: 0 2px 8px rgba(225, 29, 46, 0.35);
+    transform: translateX(-50%);
+    cursor: crosshair;
+    pointer-events: auto;
+    touch-action: none;
+}
+
+.canvas .wf-node .handle::after {
+    content: "";
+    position: absolute;
+    inset: -14px;
+}
+
+.canvas .wf-node .handle.top { top: -8px; }
+.canvas .wf-node .handle.bottom { bottom: -8px; }
+
+.canvas .wf-node.is-drop-target .wf-node-card {
+    border-color: #e11d2e;
+    box-shadow: 0 0 0 3px rgba(225, 29, 46, 0.18);
+}
+
+.canvas .edge-layer {
+    position: absolute;
+    left: 0;
+    top: 0;
+    z-index: 2;
+    width: 1800px;
+    height: 1200px;
+    overflow: visible;
+    pointer-events: none;
+}
+
+.canvas .wf-edge {
+    pointer-events: none;
+}
+
+.canvas .wf-edge-hit {
+    pointer-events: stroke;
+    stroke: transparent;
+    stroke-width: 22;
+    cursor: pointer;
+}
+
+.canvas .wf-edge-glow {
+    pointer-events: none;
+    stroke: #fda4af;
+    stroke-width: 8;
+    stroke-linecap: round;
+    opacity: 0.32;
+}
+
+.canvas .wf-edge-line {
+    pointer-events: none;
+    stroke: #be123c;
+    stroke-width: 2.75;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+}
+
+.canvas .wf-edge-arrow {
+    pointer-events: none;
+}
+
+.canvas .wf-edge.is-on .wf-edge-glow {
+    stroke: #fb7185;
+    opacity: 0.48;
+}
+
+.canvas .wf-edge.is-on .wf-edge-line {
+    stroke: #e11d2e;
+    stroke-width: 3.25;
+}
+
+.canvas .wf-edge-preview {
+    pointer-events: none;
+    stroke: #e11d2e;
+    stroke-width: 2.5;
+    stroke-linecap: round;
+    stroke-dasharray: 7 6;
+    opacity: 0.92;
+}
+
+.canvas .wf-edge-del {
+    pointer-events: auto;
+    cursor: pointer;
+    opacity: 0;
+}
+
+.canvas .wf-edge:hover .wf-edge-del,
+.canvas .wf-edge.is-on .wf-edge-del {
+    opacity: 1;
+}
+
+.canvas .wf-edge-del circle {
+    fill: #fff;
+    stroke: #e11d2e;
+    stroke-width: 1.75;
+    filter: drop-shadow(0 4px 10px rgba(63, 13, 18, 0.18));
+}
+
+.canvas .wf-edge-del path {
+    stroke: #e11d2e;
+    stroke-width: 1.85;
+    stroke-linecap: round;
+}
+
+.canvas .wf-edge-del:hover circle {
+    fill: #e11d2e;
+}
+
+.canvas .wf-edge-del:hover path {
+    stroke: #fff;
+}
