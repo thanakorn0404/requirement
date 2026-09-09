@@ -14,9 +14,9 @@
     <div class="h-1 bg-linear-to-r from-sts via-sts-dark to-sts-navy"></div>
     <header class="builder-head">
         <div>
-            <span class="badge">ดูอย่างเดียว</span>
-            <h1 class="mt-2 text-xl">{{ $workflow->department->name ?? '' }}</h1>
-            <div class="muted">{{ $workflow->organization->name ?? '' }} · {{ $workflow->name }}</div>
+            <span class="badge" id="live-state">ดูอย่างเดียว · อัปเดตสด</span>
+            <h1 class="mt-2 text-xl" id="share-title">{{ $workflow->department->name ?? '' }}</h1>
+            <div class="muted" id="share-sub">{{ $workflow->organization->name ?? '' }} · {{ $workflow->name }}</div>
         </div>
     </header>
     <div class="canvas-wrap flex-1" id="canvas-wrap">
@@ -30,6 +30,8 @@ window.WORKFLOW = {
   canWrite: false,
   csrf: "",
   id: @json($workflow->id),
+  liveUrl: @json('/share/workflow/'.$workflow->share_token.'/live'),
+  revision: @json($revision),
   blocks: @json($graph['blocks']),
   edges: @json($graph['edges']),
 };

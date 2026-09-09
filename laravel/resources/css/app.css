@@ -14,7 +14,7 @@
     --color-sts-navy: #3f0d12;
     --color-sts-soft: #fff1f2;
     --color-sts-border: #f0d4d8;
-    --shadow-card: 0 18px 40px -28px rgb(63 13 18 / 0.35);
+    --shadow-card: 0 20px 50px -32px rgb(63 13 18 / 0.45);
 }
 
 @layer base {
@@ -23,10 +23,12 @@
     }
 
     body {
-        @apply min-h-screen bg-stone-50 font-sans text-stone-800 antialiased;
+        @apply min-h-screen bg-[#faf6f6] font-sans text-stone-800 antialiased;
         background-image:
-            radial-gradient(1200px 520px at 8% -10%, rgb(225 29 46 / 0.08), transparent 55%),
-            radial-gradient(900px 420px at 100% 0%, rgb(127 29 29 / 0.07), transparent 50%);
+            radial-gradient(#f0d4d8 0.8px, transparent 0.8px),
+            radial-gradient(1100px 480px at 6% -12%, rgb(225 29 46 / 0.10), transparent 55%),
+            radial-gradient(900px 420px at 100% 0%, rgb(127 29 29 / 0.07), transparent 52%);
+        background-size: 22px 22px, auto, auto;
     }
 
     h1 {
@@ -80,11 +82,25 @@
     }
 
     .card {
-        @apply rounded-3xl bg-white/90 shadow-card ring-1 ring-rose-100/80 backdrop-blur;
+        @apply rounded-[1.6rem] bg-white shadow-card ring-1 ring-rose-100/90;
     }
 
     .card-pad {
         @apply p-5 sm:p-6;
+    }
+
+    .tile-card {
+        @apply relative block overflow-hidden rounded-[1.6rem] bg-white p-5 pl-6 shadow-card ring-1 ring-rose-100/90 transition duration-200 hover:-translate-y-0.5 hover:shadow-xl sm:p-6 sm:pl-7;
+    }
+
+    .tile-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        bottom: 0;
+        width: 5px;
+        background: linear-gradient(180deg, #e11d2e, #3f0d12);
     }
 
     .badge {
@@ -132,7 +148,7 @@
     }
 
     .table-wrap {
-        @apply overflow-x-auto rounded-3xl bg-white/90 shadow-card ring-1 ring-rose-100/80 backdrop-blur;
+        @apply overflow-x-auto rounded-[1.6rem] bg-white shadow-card ring-1 ring-rose-100/90;
     }
 
     .table {
@@ -257,11 +273,19 @@
     }
 
     .stat-card {
-        @apply relative overflow-hidden rounded-3xl bg-white/90 p-5 shadow-card ring-1 ring-rose-100/80 backdrop-blur transition hover:-translate-y-0.5 hover:shadow-xl;
+        @apply relative flex items-start gap-3 overflow-hidden rounded-[1.6rem] bg-white p-5 shadow-card ring-1 ring-rose-100/90 transition duration-200 hover:-translate-y-0.5 hover:shadow-xl;
+    }
+
+    .stat-icon {
+        @apply grid h-11 w-11 shrink-0 place-items-center rounded-2xl bg-sts-soft text-sts;
+    }
+
+    .stat-icon svg {
+        @apply h-5 w-5;
     }
 
     .stat-value {
-        @apply mt-2 text-3xl font-extrabold tracking-tight text-sts-deep;
+        @apply mt-1 text-3xl font-extrabold tracking-tight text-sts-deep;
     }
 
     .list-row {

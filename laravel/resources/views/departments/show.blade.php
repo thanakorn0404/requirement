@@ -9,10 +9,18 @@
     @endif
 </x-page-head>
 <div class="mb-6 grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-    <div class="stat-card"><div class="muted">ตำแหน่ง</div><div class="stat-value">{{ $department->positions->count() }}</div></div>
-    <div class="stat-card"><div class="muted">บุคลากร</div><div class="stat-value">{{ $department->people->count() }}</div></div>
-    <div class="stat-card"><div class="muted">การเดินหนังสือ</div><div class="stat-value">{{ $department->workflows->count() }}</div></div>
-    <div class="stat-card"><div class="muted">ความต้องการ</div><div class="stat-value">{{ $requirements->count() }}</div></div>
+    <x-stat label="ตำแหน่ง" :value="$department->positions->count()">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"/></svg>
+    </x-stat>
+    <x-stat label="บุคลากร" :value="$department->people->count()">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8"/></svg>
+    </x-stat>
+    <x-stat label="การเดินหนังสือ" :value="$department->workflows->count()">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M7 7h10M7 12h10M7 17h6"/></svg>
+    </x-stat>
+    <x-stat label="ความต้องการ" :value="$requirements->count()">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5h12M9 12h12M9 19h12M4 5h.01M4 12h.01M4 19h.01"/></svg>
+    </x-stat>
 </div>
 <div class="grid gap-4 lg:grid-cols-2">
     <div class="card card-pad">

@@ -2,18 +2,18 @@
 @section('content')
 <x-page-head kicker="ภาพรวมระบบ" title="สวัสดี {{ auth()->user()->name }}" text="สรุปหน่วยงาน การเดินหนังสือ และความต้องการของระบบ" />
 <div class="grid gap-4 sm:grid-cols-2 xl:grid-cols-4">
-    @foreach([
-        ['หน่วยงาน', $organizationCount, '/admin/organizations'],
-        ['กอง / สำนัก', $departmentCount, '/admin/organizations'],
-        ['บุคลากร', $personCount, '/admin/organizations'],
-        ['ความต้องการของระบบ', $requirementCount, '/admin/requirements'],
-    ] as $card)
-    <a class="stat-card" href="{{ $card[2] }}">
-        <div class="muted">{{ $card[0] }}</div>
-        <div class="stat-value">{{ number_format($card[1]) }}</div>
-        <div class="pointer-events-none absolute -right-6 -top-6 h-24 w-24 rounded-full bg-sts/10"></div>
-    </a>
-    @endforeach
+    <x-stat label="หน่วยงาน" :value="$organizationCount" href="/admin/organizations">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M3 21V7l9-4 9 4v14M9 21v-6h6v6"/></svg>
+    </x-stat>
+    <x-stat label="กอง / สำนัก" :value="$departmentCount" href="/admin/organizations">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M4 21V10m16 11V10M4 10l8-6 8 6M9 21v-6h6v6"/></svg>
+    </x-stat>
+    <x-stat label="บุคลากร" :value="$personCount" href="/admin/organizations">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 11a4 4 0 100-8 4 4 0 000 8"/></svg>
+    </x-stat>
+    <x-stat label="ความต้องการของระบบ" :value="$requirementCount" href="/admin/requirements">
+        <svg fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M9 5h12M9 12h12M9 19h12M4 5h.01M4 12h.01M4 19h.01"/></svg>
+    </x-stat>
 </div>
 <div class="mt-6 grid gap-4 lg:grid-cols-2">
     <div class="card card-pad">
@@ -72,7 +72,7 @@
         @endforelse
     </div>
 </div>
-<div class="card card-pad mt-4 flex items-center justify-between gap-3 text-sm text-stone-600">
+<div class="tile-card mt-4 flex items-center justify-between gap-3 text-sm text-stone-600">
     <span>การเดินหนังสือทั้งหมดในระบบ</span>
     <span class="text-lg font-extrabold text-sts-deep">{{ number_format($workflowCount) }}</span>
 </div>

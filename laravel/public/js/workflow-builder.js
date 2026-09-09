@@ -904,6 +904,51 @@ window.addEventListener("keydown", (event) => {
 
 render();
 
+function startLiveWatch() {
+  const url = window.WORKFLOW.liveUrl;
+  if (!url || canWrite || printMode) return;
+
+  let revision = window.WORKFLOW.revision || "";
+  let ticking = false;
+
+  const applyLive = (data) => {
+    if (!data?.revision || data.revision === revision) return;
+    revision = data.revision;
+    state.blocks = structuredClone(data.blocks || []);
+    state.edges = structuredClone(data.edges || []);
+    render();
+    const live = document.getElementById("live-state");
+    if (live) live.textContent = data.updated_label ? `อัปเดตสด · ${data.updated_label}` : "เพิ่งอัปเดต";
+    const title = document.getElementById("share-title");
+    if (title && data.department) title.textContent = data.department;
+    const sub = document.getElementById("share-sub");
+    if (sub && (data.organization || data.name)) {
+      sub.textContent = [data.organization, data.name].filter(Boolean).join(" · ");
+    }
+  };
+
+  const tick = async () => {
+    if (document.hidden || ticking) return;
+    ticking = true;
+    try {
+      const res = await fetch(url, { cache: "no-store", headers: { Accept: "application/json" } });
+      if (res.ok) applyLive(await res.json());
+    } catch (_) {
+      const live = document.getElementById("live-state");
+      if (live) live.textContent = "รอการเชื่อมต่ออีกครั้ง";
+    } finally {
+      ticking = false;
+    }
+  };
+
+  setInterval(tick, 2000);
+  document.addEventListener("visibilitychange", () => {
+    if (!document.hidden) tick();
+  });
+}
+
+startLiveWatch();
+
 function printTextWidth(text, font) {
   const ctx = printTextWidth.ctx || (printTextWidth.ctx = document.createElement("canvas").getContext("2d"));
   ctx.font = font;

@@ -26,7 +26,7 @@
             </ul>
         </section>
 
-        <form class="rounded-[2rem] bg-white p-8 shadow-2xl shadow-black/25 ring-1 ring-white/70" method="post" action="/login" id="login-form">
+        <form class="rounded-[2rem] bg-white p-8 shadow-2xl shadow-black/25 ring-1 ring-white/70 sm:p-10" method="post" action="/login" id="login-form">
             @csrf
             <p class="text-sm font-semibold text-sts">ยินดีต้อนรับ</p>
             <h2 class="mt-1 text-2xl font-bold text-sts-deep">เข้าสู่ระบบ</h2>
@@ -50,13 +50,23 @@
 const inputs = [...document.querySelectorAll('#pins input')];
 const hidden = document.getElementById('pin');
 const form = document.getElementById('login-form');
+let submitting = false;
 const sync = () => { hidden.value = inputs.map(x => x.value).join(''); };
+const submitOnce = () => {
+  if (submitting || hidden.value.length !== 6) return;
+  submitting = true;
+  form.submit();
+};
+window.addEventListener('pageshow', (e) => {
+  if (e.persisted) location.reload();
+});
+form.addEventListener('submit', () => { submitting = true; });
 inputs.forEach((el, i) => {
   el.addEventListener('input', () => {
     el.value = el.value.replace(/\D/g,'').slice(0,1);
     if (el.value && inputs[i+1]) inputs[i+1].focus();
     sync();
-    if (hidden.value.length === 6) form.submit();
+    submitOnce();
   });
   el.addEventListener('keydown', (e) => {
     if (e.key === 'Backspace' && !el.value && inputs[i-1]) inputs[i-1].focus();
@@ -68,7 +78,7 @@ inputs.forEach((el, i) => {
     text.split('').forEach((ch, idx) => { if (inputs[idx]) inputs[idx].value = ch; });
     sync();
     (inputs[Math.min(text.length, 5)] || inputs[5]).focus();
-    if (hidden.value.length === 6) form.submit();
+    submitOnce();
   });
 });
 </script>

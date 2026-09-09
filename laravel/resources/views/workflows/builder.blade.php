@@ -106,7 +106,7 @@
     </form>
 </x-dialog>
 
-<x-dialog id="share-dialog" title="ลิงก์สำหรับคนดู" subtitle="ผู้ที่ได้รับลิงก์จะเปิดแผนผังได้แบบดูอย่างเดียว">
+<x-dialog id="share-dialog" title="ลิงก์สำหรับคนดู" subtitle="ผู้ที่ได้รับลิงก์จะเห็นแผนผังแบบดูอย่างเดียว และอัปเดตตามที่บันทึกร่างอัตโนมัติ">
     <label>ลิงก์แชร์</label>
     <input class="input" id="share-url" readonly>
     <div class="dialog-actions">

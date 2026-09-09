@@ -88,10 +88,10 @@
                 </div>
                 <form action="/search" method="get" class="flex min-w-0 items-center gap-3">
                     <div class="relative w-40 sm:w-56 md:w-80">
-                        <input class="input w-full pl-10" name="q" value="{{ request('q') }}" placeholder="ค้นหาหน่วยงาน งานเดินหนังสือ...">
+                        <input class="input w-full rounded-full pl-10" name="q" value="{{ request('q') }}" placeholder="ค้นหาหน่วยงาน งานเดินหนังสือ...">
                         <svg class="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-stone-400" fill="none" stroke="currentColor" stroke-width="1.8" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-4.3-4.3M10.5 18a7.5 7.5 0 100-15 7.5 7.5 0 000 15z"/></svg>
                     </div>
-                    <div class="badge max-w-28 truncate sm:max-w-none">{{ $user?->name }}</div>
+                    <div class="badge grid h-9 max-w-none place-items-center truncate rounded-full px-3 sm:max-w-none">{{ $user?->name }}</div>
                 </form>
             </div>
         </header>

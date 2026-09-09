@@ -3,7 +3,7 @@
 <x-page-head kicker="แผนผังงาน" title="การเดินหนังสือทั้งหมด" text="เปิดแผนผังเพื่อออกแบบงาน ตำแหน่ง และหน้าที่" />
 <div class="grid gap-4">
 @forelse($workflows as $item)
-    <a class="card card-pad transition hover:-translate-y-0.5 hover:shadow-xl" href="{{ $item->builderPath() }}">
+    <a class="tile-card" href="{{ $item->builderPath() }}">
         <div class="flex items-start justify-between gap-3">
             <strong class="text-lg text-sts-deep">{{ $item->name }}</strong>
             <x-status :value="$item->status" />

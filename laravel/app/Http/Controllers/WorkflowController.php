@@ -161,11 +161,27 @@ class WorkflowController extends Controller
 
     public function publicShow(string $token)
     {
-        $workflow = Workflow::query()->notDeleted()->where('share_token', $token)->firstOrFail();
-        $workflow->load(['blocks.responsibles.person', 'edges', 'organization', 'department']);
-        $graph = $this->graphPayload($workflow);
+        [$workflow, $graph] = $this->publicWorkflow($token);
+        $revision = $this->publicRevision($workflow, $graph);
 
-        return view('workflows.share', compact('workflow', 'graph'));
+        return view('workflows.share', compact('workflow', 'graph', 'revision'));
+    }
+
+    public function publicLive(string $token)
+    {
+        [$workflow, $graph] = $this->publicWorkflow($token);
+
+        return response()->json([
+            'revision' => $this->publicRevision($workflow, $graph),
+            'name' => $workflow->name,
+            'department' => $workflow->department->name ?? '',
+            'organization' => $workflow->organization->name ?? '',
+            'updated_label' => $workflow->updated_at
+                ? $workflow->updated_at->timezone('Asia/Bangkok')->format('H:i:s')
+                : '',
+            'blocks' => $graph['blocks'],
+            'edges' => $graph['edges'],
+        ])->header('Cache-Control', 'no-store, no-cache, must-revalidate');
     }
 
     public function print(Organization $organization, Department $department, Workflow $workflow)
@@ -337,6 +353,23 @@ class WorkflowController extends Controller
         ]);
 
         return $created->id;
+    }
+
+    private function publicWorkflow(string $token): array
+    {
+        $workflow = Workflow::query()->notDeleted()->where('share_token', $token)->firstOrFail();
+        $workflow->load(['blocks.responsibles.person', 'edges', 'organization', 'department']);
+
+        return [$workflow, $this->graphPayload($workflow)];
+    }
+
+    private function publicRevision(Workflow $workflow, array $graph): string
+    {
+        return hash('sha256', json_encode([
+            $workflow->updated_at?->getTimestamp(),
+            $workflow->name,
+            $graph,
+        ], JSON_UNESCAPED_UNICODE));
     }
 
     private function graphPayload(Workflow $workflow): array

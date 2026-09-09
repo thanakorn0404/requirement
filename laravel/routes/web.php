@@ -17,6 +17,7 @@ Route::get('/', fn () => redirect('/login'));
 Route::get('/login', [AuthController::class, 'showLogin'])->name('login');
 Route::post('/login', [AuthController::class, 'login']);
 Route::get('/share/workflow/{token}', [WorkflowController::class, 'publicShow']);
+Route::get('/share/workflow/{token}/live', [WorkflowController::class, 'publicLive']);
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
